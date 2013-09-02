@@ -10,9 +10,9 @@ module DistrictCn
   autoload :ActsAsAreaField,'district_cn/acts_as_area_field'
   begin
     if defined?(ActiveRecord)
-      ActiveRecord::Base.extend(ActsAsAreaField)
+      ActiveRecord::Base.send :include, ActsAsAreaField
     end
-  rescue 
+  rescue
   end
 
   class << self

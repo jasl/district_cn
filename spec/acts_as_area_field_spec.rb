@@ -2,7 +2,7 @@
 require 'spec_helper'
 silence_warnings do
   ActiveRecord::Migration.verbose = false
-  ActiveRecord::Base.logger = Logger.new(nil)
+  ActiveRecord::Base.logger = Logger.new($stdout)
   ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 end
 

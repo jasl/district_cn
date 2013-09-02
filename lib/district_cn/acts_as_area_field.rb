@@ -1,10 +1,11 @@
 module DistrictCn
   module ActsAsAreaField
-    def acts_as_area_field(*attributes)
-      define_attribute_methods unless attribute_methods_generated?
+    extend ActiveSupport::Concern
 
-      attributes.each do |attribute|
-        class_eval <<-EVAL
+    module ClassMethods
+      def acts_as_area_field(*attributes)
+        attributes.each do |attribute|
+          class_eval <<-EVAL
           alias_method :_#{attribute}, :#{attribute}
           def #{attribute}
             val = _#{attribute}
@@ -15,7 +16,8 @@ module DistrictCn
             end
             @_#{attribute}
           end
-        EVAL
+          EVAL
+        end
       end
     end
   end
