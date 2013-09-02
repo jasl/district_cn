@@ -18,11 +18,11 @@ end
 class Company < ActiveRecord::Base
   attr_accessor :region_code
 
-  act_as_area_field :region_code,:loc_code
+  acts_as_area_field :region_code, :loc_code
   validates :region_code, presence: true
 end
 
-describe DistrictCn::ActAsAreaField do
+describe DistrictCn::ActsAsAreaField do
   subject { Company.new }
   it "should return nil when attribute region_code is nil" do
     expect(subject.region_code).to be_nil

@@ -77,7 +77,7 @@ codes.first.name
 DistrictCn.tree #树状结构数据
 DistrictCn.list #数据列表
 ```
-## 使用act_as_area_field 简化调用(ActiveRecord适用)
+## 使用acts_as_area_field 简化调用
 ```ruby
 #company.rb
 class Company < ActiveRecord::Base
@@ -88,10 +88,14 @@ class Company < ActiveRecord::Base
   validates :region_code, presence: true
 end
 ```
+
+**非ActiveRecord需要在模型中主动 ```include DistrictCn::ActsAsAreaField``` **
+
+
 ```ruby
 company = Company.new
 company.region_code = 331002
-#不使用act_as_area_field
+#不使用acts_as_area_field
 company.region_code 
 #=> 331002
 District::Cn.code(company.region_code).name

@@ -1,0 +1,22 @@
+module DistrictCn
+  module ActsAsAreaField
+    def acts_as_area_field(*attributes)
+      define_attribute_methods unless attribute_methods_generated?
+
+      attributes.each do |attribute|
+        class_eval <<-EVAL
+          alias_method :_#{attribute}, :#{attribute}
+          def #{attribute}
+            val = _#{attribute}
+            return val if val.blank?
+
+            unless @_#{attribute} && val.eql?(@_#{attribute}.value)
+              @_#{attribute} = DistrictCn.code(val)
+            end
+            @_#{attribute}
+          end
+        EVAL
+      end
+    end
+  end
+end
